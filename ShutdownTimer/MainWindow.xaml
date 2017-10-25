@@ -19,8 +19,8 @@
         <Button Content="8" Height="46" HorizontalAlignment="Left" Margin="114,162,0,0" Name="btn8" VerticalAlignment="Top" Width="78" Click="Btn8_Click"/>
         <Button Content="9" Height="46" HorizontalAlignment="Left" Margin="197,162,0,0" Name="btn9" VerticalAlignment="Top" Width="78" Click="Btn9_Click"/>
         <Button Content="Clear" HorizontalAlignment="Left" Margin="114,213,0,0" VerticalAlignment="Top" Width="161" Height="45" Click="Button_Clear"/>
-        <Button Content="Shutdown" HorizontalAlignment="Left" Margin="330,84,0,0" VerticalAlignment="Top" Width="157" Height="41" Click="Button_Shutdown"/>
-        <Button Content="Abort" HorizontalAlignment="Left" Margin="330,162,0,0" VerticalAlignment="Top" Width="157" Height="41"  Click="Button_Abort"/>
+        <Button Content="Shutdown" HorizontalAlignment="Left" Margin="317,65,0,0" VerticalAlignment="Top" Width="157" Height="41" Click="Button_Shutdown"/>
+        <Button Content="Abort" HorizontalAlignment="Left" Margin="317,132,0,0" VerticalAlignment="Top" Width="157" Height="41"  Click="Button_Abort"/>
         <TextBox Height="27" HorizontalAlignment="Left" Margin="31,19,0,0" Visibility="Collapsed" TextAlignment="Center" TextOptions.TextFormattingMode="Display" Name="textBox2Collapsed" VerticalAlignment="Top" Width="244" RenderTransformOrigin="1.002,0.642" TextChanged="textChangedEventHandler"/>
     </Grid>
 </Window>
