@@ -12,4 +12,3 @@ C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.csproj.CoreCompileInputs.cache
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.exe
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.pdb
-C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.csprojResolveAssemblyReference.cache

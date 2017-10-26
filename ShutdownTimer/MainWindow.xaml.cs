@@ -33,12 +33,10 @@ namespace ShutdownTimer
             timer.Tick += timer_Tick;
             timer.Start();
         }
-
         void timer_Tick(object sender, EventArgs e)
         {
             lblTime.Content = DateTime.Now.ToLongTimeString();
         }
-
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
@@ -59,14 +57,24 @@ namespace ShutdownTimer
         private void Button_Shutdown(object sender, RoutedEventArgs e)
         {
             Process shutDown = new Process();
-            shutDown.ShutdownComputer(GetTime());
+            shutDown.ShutdownComputer(GetTime());  
         }
-
         private void Button_Abort(object sender, RoutedEventArgs e)
         {
             Process shutDown = new Process();
             shutDown.AbortShutdown();
             MessageBox.Show("All actions was terminated.");
+          
+        }
+        private void Button_Hibernate(object sender, RoutedEventArgs e)
+        {
+            Process shutDown = new Process();
+            MessageBoxResult messageBoxResult = MessageBox.Show("Hibernate command will close all of your apps, would you like to contunie?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                shutDown.Hibernate(GetTime());
+            }
+
         }
 
         private void Button_LogOff(object sender, RoutedEventArgs e)
@@ -78,7 +86,11 @@ namespace ShutdownTimer
                 shutDown.LogOff();
             }
         }
-
+        private void Button_Restart(object sender, RoutedEventArgs e)
+        {
+            Process shutDown = new Process();
+            shutDown.Restart(GetTime());
+        }
         private int GetTime()
         {
             string input = combobox.SelectedValue.ToString();
