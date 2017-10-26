@@ -58,20 +58,20 @@ namespace ShutdownTimer
 
         private void Button_Shutdown(object sender, RoutedEventArgs e)
         {
-            Shutdown shutDown = new Shutdown();
+            Process shutDown = new Process();
             shutDown.ShutdownComputer(GetTime());
         }
 
         private void Button_Abort(object sender, RoutedEventArgs e)
         {
-            Shutdown shutDown = new Shutdown();
+            Process shutDown = new Process();
             shutDown.AbortShutdown();
             MessageBox.Show("All actions was terminated.");
         }
 
         private void Button_LogOff(object sender, RoutedEventArgs e)
         {
-            Shutdown shutDown = new Shutdown();
+            Process shutDown = new Process();
             MessageBoxResult messageBoxResult = MessageBox.Show("Log Off command will close all of your apps, would you like to contunie?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShutdownTimer
 {
-    public class Shutdown
+    public class Process
     {
         public void ShutdownComputer(int time)
         {
@@ -27,7 +27,7 @@ namespace ShutdownTimer
             procStartInfo.RedirectStandardOutput = true;
             procStartInfo.UseShellExecute = false;
             procStartInfo.CreateNoWindow = true;
-            Process proc = new Process();
+            System.Diagnostics.Process proc = new System.Diagnostics.Process();
             proc.StartInfo = procStartInfo;
             proc.Start();
         }
@@ -50,7 +50,7 @@ namespace ShutdownTimer
             procStartInfo.RedirectStandardOutput = true;
             procStartInfo.UseShellExecute = false;
             procStartInfo.CreateNoWindow = true;
-            Process proc = new Process();
+            System.Diagnostics.Process proc = new System.Diagnostics.Process();
             proc.StartInfo = procStartInfo;
             proc.Start();
         }
