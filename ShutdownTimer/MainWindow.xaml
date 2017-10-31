@@ -5,30 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShutdownTimer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="320" Width="360">
-    <Grid Margin="0,10,4,-2.6">
+        Title="Shutdown Timer" Height="210" Width="215">
+    <Grid Margin="0,10,3.6,8.4">
 
         <ComboBox
             x:Name="combobox"
             HorizontalAlignment="Left"
-            Margin="10,30,0,0"
+            Margin="10,10,0,0"
             VerticalAlignment="Top"
-            Width="146"
-            Loaded="ComboBox_Loaded" Height="29"
+            Width="182"
+            Loaded="ComboBox_Loaded" Height="31"
+            BorderBrush="AliceBlue"
            />
-        <Button Content="Shutdown" HorizontalAlignment="Left" Margin="175,30,0,0" VerticalAlignment="Top" Width="157" Height="41" Click="Button_Shutdown"/>
-        <Button Content="Hibernate" HorizontalAlignment="Left" Margin="175,168,0,0" VerticalAlignment="Top" Width="157" Height="41"  Click="Button_Hibernate"/>
-        <Button Content="Log Off" HorizontalAlignment="Left" Margin="175,122,0,0" VerticalAlignment="Top" Width="157" Height="41" Click="Button_LogOff"/>
-        <Label Content="Commands" HorizontalAlignment="Left" Margin="210,0,0,0" VerticalAlignment="Top" Width="72" Height="29"/>
-        <Label Content="Chose time" HorizontalAlignment="Left" Margin="54,0,0,0" VerticalAlignment="Top" Height="26" Width="69"/>
-        <TextBox HorizontalAlignment="Left" Height="20" Margin="87,90,0,0" TextWrapping="Wrap"  TextAlignment="Center" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.245,5.254"/>
-        <TextBox HorizontalAlignment="Left" Height="20" Margin="22,90,0,0" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.575,0.49"/>
-        <Label Content="h" HorizontalAlignment="Left" Margin="62,90,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.287,0.523" Height="26" Width="17"/>
-        <Label Content="m" HorizontalAlignment="Left" Margin="127,90,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.202,0.492" Height="26" Width="21"/>
-        <Label Content="Set time" HorizontalAlignment="Left" Margin="54,59,0,0" VerticalAlignment="Top" Height="26" Width="53"/>
-        <Label Name="lblTime" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,149,178.6,86" Height="48" Width="161" />
-        <Label Content="Time remaining" HorizontalAlignment="Left" Margin="34,123,0,0" VerticalAlignment="Top" Height="26" Width="93"/>
-        <Button Content="Abort" HorizontalAlignment="Left" Margin="175,214,0,0" VerticalAlignment="Top" Width="157" Height="41"  Click="Button_Abort"/>
-        <Button Content="Restart" HorizontalAlignment="Left" Margin="175,76,0,0" VerticalAlignment="Top" Width="157" Height="41" Click="Button_Restart"/>
+        <Button Content="Shutdown" HorizontalAlignment="Left" Margin="10,46,0,0" BorderBrush="AliceBlue" VerticalAlignment="Top" Width="182" Height="32" Click="Button_Shutdown"/>
+        <Button Content="Abort" HorizontalAlignment="Left" Margin="10,83,0,0"  BorderBrush="AliceBlue" VerticalAlignment="Top" Width="182" Height="32"  Click="Button_Abort"/>
+        <Button Content="Options" HorizontalAlignment="Left" Margin="10,120,0,0"  BorderBrush="AliceBlue" VerticalAlignment="Top" Width="182" Height="32" Click="Button_AdditionOptions"/>
     </Grid>
+
 </Window>

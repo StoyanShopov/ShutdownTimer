@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,21 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Threading;
-
 
 namespace ShutdownTimer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ExpandedPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ExpandedPage 
     {
-        public MainWindow()
+        public ExpandedPage()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
+
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
@@ -51,14 +46,39 @@ namespace ShutdownTimer
         private void Button_Shutdown(object sender, RoutedEventArgs e)
         {
             Process shutDown = new Process();
-            shutDown.ShutdownComputer(GetTime());  
+            shutDown.ShutdownComputer(GetTime());
         }
         private void Button_Abort(object sender, RoutedEventArgs e)
         {
             Process shutDown = new Process();
             shutDown.AbortShutdown();
             MessageBox.Show("All actions was terminated.");
-          
+
+        }
+        private void Button_Hibernate(object sender, RoutedEventArgs e)
+        {
+            Process shutDown = new Process();
+            MessageBoxResult messageBoxResult = MessageBox.Show("Hibernate command will close all of your apps, would you like to contunie?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                shutDown.Hibernate(GetTime());
+            }
+
+        }
+
+        private void Button_LogOff(object sender, RoutedEventArgs e)
+        {
+            Process shutDown = new Process();
+            MessageBoxResult messageBoxResult = MessageBox.Show("Log Off command will close all of your apps, would you like to contunie?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                shutDown.LogOff();
+            }
+        }
+        private void Button_Restart(object sender, RoutedEventArgs e)
+        {
+            Process shutDown = new Process();
+            shutDown.Restart(GetTime());
         }
         private int GetTime()
         {
@@ -74,10 +94,10 @@ namespace ShutdownTimer
             return time;
         }
 
-        private void Button_AdditionOptions(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ExpandedPage expPage = new ExpandedPage();
-            expPage.Show();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             this.Close();
         }
     }
