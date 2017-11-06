@@ -56,22 +56,33 @@ namespace ShutdownTimer
         private void Button_Abort(object sender, RoutedEventArgs e)
         {
             Process shutDown = new Process();
-            shutDown.AbortShutdown();
-            MessageBox.Show("All actions was terminated.");
-          
+            shutDown.AbortShutdown();  
         }
-        private int GetTime()
+      
+        private void Button_Hibernate(object sender, RoutedEventArgs e)
         {
-            string input = combobox.SelectedValue.ToString();
-            string digitValue = input.Substring(0, input.Length - 1);
-            int time = int.Parse(digitValue) * 60;
-
-            if (time <= 240)
+            Process shutDown = new Process();
+            MessageBoxResult messageBoxResult = MessageBox.Show("Hibernate command will close all of your apps, would you like to contunie?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                time *= 60;
+                shutDown.Hibernate(GetTime());
             }
 
-            return time;
+        }
+
+        private void Button_LogOff(object sender, RoutedEventArgs e)
+        {
+            Process shutDown = new Process();
+            MessageBoxResult messageBoxResult = MessageBox.Show("Log Off command will close all of your apps, would you like to contunie?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                shutDown.LogOff();
+            }
+        }
+        private void Button_Restart(object sender, RoutedEventArgs e)
+        {
+            Process shutDown = new Process();
+            shutDown.Restart(GetTime());
         }
 
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
@@ -79,6 +90,20 @@ namespace ShutdownTimer
             ExpandedPage expPage = new ExpandedPage();
             expPage.Show();
             this.Close();
+        }
+
+        private int GetTime()
+        {
+            string input = combobox.SelectedValue.ToString();
+            string digitValue = input.Substring(0, input.Length - 1);
+            int time = int.Parse(digitValue) * 60;
+
+            if (input[1] == 'h')
+            {
+                time *= 60;
+            }
+
+            return time;
         }
     }
 }

@@ -1,0 +1,15 @@
+﻿<Window x:Class="ShutdownTimer.ExpandedPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ShutdownTimer"
+      mc:Ignorable="d" 
+      Title="Settings" Height="159.4" Width="313.4">
+
+    <Grid Margin="10,10,3.2,0" Height="98" VerticalAlignment="Top">
+        <TextBox HorizontalAlignment="Left" x:Name="PassTextBox" Height="23" Margin="47,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187"/>
+        <Label Content="Enter pass" HorizontalAlignment="Left" Margin="104,-2,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="104,65,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_1"/>
+    </Grid>
+</Window>
