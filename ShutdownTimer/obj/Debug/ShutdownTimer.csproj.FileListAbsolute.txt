@@ -16,3 +16,7 @@ C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\AdvancedOptio
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\Authorization\Authorization.g.cs
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\AdvancedOptions\AdvancedOptions.baml
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\Authorization\Authorization.baml
+C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\Test.g.cs
+C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\Test.baml
+C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\Authorization\SetPassword.g.cs
+C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\Authorization\SetPassword.baml

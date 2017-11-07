@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ShutdownTimer.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -45,7 +47,6 @@ namespace ShutdownTimer
             data.Add("3h");
             data.Add("4h");
             comboBox.ItemsSource = data;
-            comboBox.SelectedIndex = 3;
         }
 
         private void Button_Shutdown(object sender, RoutedEventArgs e)
@@ -87,9 +88,20 @@ namespace ShutdownTimer
 
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
         {
-            ExpandedPage expPage = new ExpandedPage();
-            expPage.Show();
-            this.Close();
+            string root = Directory.GetCurrentDirectory();
+            string mainFolder = root.Substring(0, root.Length - 10);
+            string path = string.Concat(mainFolder + "\\Password");
+
+            if (Directory.Exists(path))
+            {
+                MessageBox.Show(path);
+            }
+            else
+            {
+                SetPassword setpass = new SetPassword();
+                setpass.Show();
+                this.Close();
+            }
         }
 
         private int GetTime()
@@ -104,6 +116,24 @@ namespace ShutdownTimer
             }
 
             return time;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string root = Directory.GetCurrentDirectory();
+
+            if (Directory.Exists(root))
+            {
+                MessageBox.Show(root);
+            }
+            else
+            {
+                MessageBox.Show("nothing");
+            }
+
+            //Test expPage = new Test();
+            //expPage.Show();
+            //this.Close();
         }
     }
 }

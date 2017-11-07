@@ -36,7 +36,7 @@ namespace ShutdownTimer
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            string inputPass = PassTextBox.Text;
+            string inputPass = PassTextBox.Password.ToString();
 
             if (inputPass == "123")
             {
