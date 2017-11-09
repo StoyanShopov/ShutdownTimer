@@ -1,4 +1,6 @@
-﻿using ShutdownTimer.Authorization;
+﻿
+using ShutdownTimer.Authorization;
+using ShutdownTimer.PasswordAuthorization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,6 +30,7 @@ namespace ShutdownTimer
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -51,50 +54,62 @@ namespace ShutdownTimer
 
         private void Button_Shutdown(object sender, RoutedEventArgs e)
         {
-            Process shutDown = new Process();
-            shutDown.ShutdownComputer(GetTime());  
+            if (combobox.SelectedValue == null)
+            {
+                MessageBox.Show("Please set time");
+                return;
+            }
+
+            Process process = new Process();
+            process.ShutdownComputer(GetTime());
         }
-        private void Button_Abort(object sender, RoutedEventArgs e)
-        {
-            Process shutDown = new Process();
-            shutDown.AbortShutdown();  
-        }
-      
         private void Button_Hibernate(object sender, RoutedEventArgs e)
         {
-            Process shutDown = new Process();
-            MessageBoxResult messageBoxResult = MessageBox.Show("Hibernate command will close all of your apps, would you like to contunie?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
+            if (combobox.SelectedValue == null)
             {
-                shutDown.Hibernate(GetTime());
+                MessageBox.Show("Please set time");
+                return;
             }
 
-        }
-
-        private void Button_LogOff(object sender, RoutedEventArgs e)
-        {
-            Process shutDown = new Process();
-            MessageBoxResult messageBoxResult = MessageBox.Show("Log Off command will close all of your apps, would you like to contunie?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
-            {
-                shutDown.LogOff();
-            }
+            Process process = new Process();
+            process.Hibernate(GetTime());
         }
         private void Button_Restart(object sender, RoutedEventArgs e)
         {
-            Process shutDown = new Process();
-            shutDown.Restart(GetTime());
-        }
+            if (combobox.SelectedValue == null)
+            {
+                MessageBox.Show("Please set time");
+                return;
+            }
 
+            Process process = new Process();
+            process.Restart(GetTime());
+        }
+        private void Button_LogOff(object sender, RoutedEventArgs e)
+        {
+            if (combobox.SelectedValue == null)
+            {
+                MessageBox.Show("Please set time");
+                return;
+            }
+
+            Process process = new Process();
+            process.LogOff(GetTime());
+        }
+        private void Button_Abort(object sender, RoutedEventArgs e)
+        {
+            Process process = new Process();
+            process.AbortShutdown();
+        }
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
         {
-            string root = Directory.GetCurrentDirectory();
-            string mainFolder = root.Substring(0, root.Length - 10);
-            string path = string.Concat(mainFolder + "\\Password");
+            string path = @"C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\DeleteForAccess.xml";
 
-            if (Directory.Exists(path))
+            if (File.Exists(path))
             {
-                MessageBox.Show(path);
+                ConfirmPassword authorization = new ConfirmPassword();
+                authorization.Show();
+                this.Close();
             }
             else
             {
@@ -103,9 +118,9 @@ namespace ShutdownTimer
                 this.Close();
             }
         }
-
         private int GetTime()
         {
+            
             string input = combobox.SelectedValue.ToString();
             string digitValue = input.Substring(0, input.Length - 1);
             int time = int.Parse(digitValue) * 60;
@@ -116,24 +131,6 @@ namespace ShutdownTimer
             }
 
             return time;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            string root = Directory.GetCurrentDirectory();
-
-            if (Directory.Exists(root))
-            {
-                MessageBox.Show(root);
-            }
-            else
-            {
-                MessageBox.Show("nothing");
-            }
-
-            //Test expPage = new Test();
-            //expPage.Show();
-            //this.Close();
         }
     }
 }

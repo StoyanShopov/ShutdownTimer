@@ -6,18 +6,11 @@
         xmlns:local="clr-namespace:ShutdownTimer"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Shutdown Timer" Height="381.7" Width="215">
-    <Grid Margin="0,0,-6.2,-5" Background="#FF3F3F3F" Height="357" VerticalAlignment="Top">
+        Title="Shutdown Timer" Height="381.7" Width="218">
 
+    <Grid Height="351" Width="218" VerticalAlignment="Top" Background="#FF3F3F3F">
 
-        <ComboBox x:Name="combobox" HorizontalAlignment="Left" Margin="10,26,0,0"
-            VerticalAlignment="Top"
-            Width="182"
-            Loaded="ComboBox_Loaded" Height="31"
-            BorderBrush="AliceBlue"
-            Foreground="White" 
-            FontSize="15" FontWeight="Bold" 
-           >
+        <ComboBox x:Name="combobox" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="182" Loaded="ComboBox_Loaded" Height="31" BorderBrush="AliceBlue" Foreground="White" FontSize="15" FontWeight="Bold">
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Background" Value="#99caff"/>
@@ -27,16 +20,13 @@
             </ComboBox.ItemContainerStyle>
         </ComboBox>
 
-        <Button Content="Shutdown" HorizontalAlignment="Left" Margin="10,74,0,0"  FontSize="15" FontWeight="Bold"  Foreground="White" Background="#99caff" BorderBrush="#FF3F3F3F" VerticalAlignment="Top" Width="182" Height="35" Click="Button_Shutdown"/>
-        <Button Content="Abort" HorizontalAlignment="Left" Margin="10,222,0,0" FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff"  BorderBrush="#FF3F3F3F" VerticalAlignment="Top" Width="182" Height="35"  Click="Button_Abort"/>
-        <Button Content="Advanced Setting" HorizontalAlignment="Left" Margin="10,280,0,28" FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_AdditionOptions"/>
-        <Button Content="Restart" HorizontalAlignment="Left" Margin="10,148,0,0" FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" VerticalAlignment="Top" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Restart"/>
-        <Button Content="Log Off" HorizontalAlignment="Left" Margin="10,185,0,0" FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" VerticalAlignment="Top" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_LogOff"/>
-        <Button Content="Hibernate" HorizontalAlignment="Left" Margin="10,111,0,0" Background="#99caff" FontSize="15" FontWeight="Bold" Foreground="White"  VerticalAlignment="Top" BorderBrush="#FF3F3F3F" Width="182" Height="35"  Click="Button_Hibernate"/>
-        <Label Content="Please set a time" FontSize="15"  Foreground="#99caff" FontWeight="Bold" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Width="127"/>
+        <Label Content="Please set a time"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,0,0,0"    FontSize="15" FontWeight="Bold" Foreground="#99caff" Width="127"/>
+        <Button Content="Shutdown"          VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,74,0,0"   FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Shutdown"/>
+        <Button Content="Hibernate"         VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,111,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Hibernate"/>
+        <Button Content="Restart"           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,148,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Restart"/>
+        <Button Content="Log Off"           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,185,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_LogOff"/>
+        <Button Content="Abort"             VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,222,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Abort"/>
+        <Button Content="Advanced Setting"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,280,0,28" FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_AdditionOptions"/>
 
     </Grid>
-
-
-
 </Window>

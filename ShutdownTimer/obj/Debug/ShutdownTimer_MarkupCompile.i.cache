@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\App.xaml
-5-1148227356
+4-1351847685
 
-14-1380398113
+142086649112
 131569487696
-AdvancedOptions\AdvancedOptions.xaml;Authorization\Authorization.xaml;Authorization\SetPassword.xaml;MainWindow.xaml;Test.xaml;
+AdvancedOptions\AdvancedOptions.xaml;PasswordAuthorization\ConfirmPassword.xaml;PasswordAuthorization\SetPassword.xaml;MainWindow.xaml;
 
 False
 

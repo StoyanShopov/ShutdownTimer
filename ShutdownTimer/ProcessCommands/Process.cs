@@ -34,19 +34,20 @@ namespace ShutdownTimer
 
         public void Hibernate(int time)
         {
-            //string shutDownCommand = $"  timeout /t {time} /nobreak & shutdown /h";
-            //ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + shutDownCommand);
-            //procStartInfo.RedirectStandardOutput = true;
-            //procStartInfo.UseShellExecute = false;
-            //procStartInfo.CreateNoWindow = true;
-            //Process proc = new Process();
-            //proc.StartInfo = procStartInfo;
-            //proc.Start(); 
+            string shutDownCommand = $"ping -n {time} 127.0.0.1 && shutdown /h /f";
+            ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + shutDownCommand);
+            procStartInfo.RedirectStandardOutput = true;
+            procStartInfo.UseShellExecute = false;
+            procStartInfo.CreateNoWindow = true;
+            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            proc.StartInfo = procStartInfo;
+            proc.Start();
         }
-
-        public void LogOff()
+        
+        public void LogOff(int time)
         {
-            ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + "shutdown /l");
+            string loggOfCommand = $"ping -n {time} 127.0.0.1 && rundll32.exe user32.dll,LockWorkStation";
+            ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + loggOfCommand);
             procStartInfo.RedirectStandardOutput = true;
             procStartInfo.UseShellExecute = false;
             procStartInfo.CreateNoWindow = true;
