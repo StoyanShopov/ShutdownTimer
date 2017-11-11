@@ -1,6 +1,4 @@
 ﻿
-using ShutdownTimer.Authorization;
-using ShutdownTimer.PasswordAuthorization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,7 +33,9 @@ namespace ShutdownTimer
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            CreateFolderWithBatFiles();
         }
+
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
@@ -49,50 +49,28 @@ namespace ShutdownTimer
             data.Add("2h");
             data.Add("3h");
             data.Add("4h");
+            comboBox.SelectedIndex = 4;
             comboBox.ItemsSource = data;
+            
         }
 
         private void Button_Shutdown(object sender, RoutedEventArgs e)
         {
-            if (combobox.SelectedValue == null)
-            {
-                MessageBox.Show("Please set time");
-                return;
-            }
-
             Process process = new Process();
             process.ShutdownComputer(GetTime());
         }
         private void Button_Hibernate(object sender, RoutedEventArgs e)
         {
-            if (combobox.SelectedValue == null)
-            {
-                MessageBox.Show("Please set time");
-                return;
-            }
-
             Process process = new Process();
             process.Hibernate(GetTime());
         }
         private void Button_Restart(object sender, RoutedEventArgs e)
         {
-            if (combobox.SelectedValue == null)
-            {
-                MessageBox.Show("Please set time");
-                return;
-            }
-
             Process process = new Process();
             process.Restart(GetTime());
         }
         private void Button_LogOff(object sender, RoutedEventArgs e)
         {
-            if (combobox.SelectedValue == null)
-            {
-                MessageBox.Show("Please set time");
-                return;
-            }
-
             Process process = new Process();
             process.LogOff(GetTime());
         }
@@ -103,20 +81,9 @@ namespace ShutdownTimer
         }
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
         {
-            string path = @"C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\DeleteForAccess.xml";
-
-            if (File.Exists(path))
-            {
-                ConfirmPassword authorization = new ConfirmPassword();
-                authorization.Show();
-                this.Close();
-            }
-            else
-            {
-                SetPassword setpass = new SetPassword();
-                setpass.Show();
-                this.Close();
-            }
+            AdvancedOptions adv = new AdvancedOptions();
+            adv.Show();
+            this.Close();
         }
         private int GetTime()
         {
@@ -131,6 +98,34 @@ namespace ShutdownTimer
             }
 
             return time;
+        }
+        private void CreateFolderWithBatFiles()
+        {
+            string directory = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+
+                string pathShutdown = directory + "\\Shutdown.bat";
+                string pathRestart = directory + "\\Restart.bat";
+                string pathHibernate = directory + "\\Hibernate.bat";
+                string commandShutdown = "shutdown /s /f";
+                string commandRestart = "shutdown /r /f";
+                string commandHibernate = "shutdown /h /f";
+
+                using (StreamWriter sw = File.CreateText(pathShutdown))
+                {
+                    sw.WriteLine(commandShutdown);
+                }
+                using (StreamWriter sw = File.CreateText(pathRestart))
+                {
+                    sw.WriteLine(commandRestart);
+                }
+                using (StreamWriter sw = File.CreateText(pathHibernate))
+                {
+                    sw.WriteLine(commandHibernate);
+                }
+            }
         }
     }
 }

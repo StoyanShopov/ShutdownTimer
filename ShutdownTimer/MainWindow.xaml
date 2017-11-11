@@ -10,23 +10,13 @@
 
     <Grid Height="351" Width="218" VerticalAlignment="Top" Background="#FF3F3F3F">
 
-        <ComboBox x:Name="combobox" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="182" Loaded="ComboBox_Loaded" Height="31" BorderBrush="AliceBlue" Foreground="White" FontSize="15" FontWeight="Bold">
-            <ComboBox.ItemContainerStyle>
-                <Style TargetType="ComboBoxItem">
-                    <Setter Property="Background" Value="#99caff"/>
-                    <Setter Property="BorderBrush" Value="White"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                </Style>
-            </ComboBox.ItemContainerStyle>
-        </ComboBox>
-
-        <Label Content="Please set a time"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,0,0,0"    FontSize="15" FontWeight="Bold" Foreground="#99caff" Width="127"/>
-        <Button Content="Shutdown"          VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,74,0,0"   FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Shutdown"/>
-        <Button Content="Hibernate"         VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,111,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Hibernate"/>
-        <Button Content="Restart"           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,148,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Restart"/>
-        <Button Content="Log Off"           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,185,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_LogOff"/>
-        <Button Content="Abort"             VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,222,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Abort"/>
-        <Button Content="Advanced Setting"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,280,0,28" FontSize="15" FontWeight="Bold" Foreground="White"  Background="#99caff" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_AdditionOptions"/>
+        <ComboBox x:Name="combobox" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" FontStyle="Italic" HorizontalContentAlignment="Center" Background="White" Width="182" Foreground="#54a0f2"  Loaded="ComboBox_Loaded"  Height="29" FontSize="15" FontWeight="Bold"></ComboBox>
+        <Button Content="Shutdown"          VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Margin="10,74,0,0"   FontSize="15" FontWeight="Bold" Foreground="White"  Background="#79b3f2" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Shutdown"/>
+        <Button Content="Hibernate"         VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Margin="10,111,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#79b3f2" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Hibernate"/>
+        <Button Content="Restart"           VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Margin="10,148,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#79b3f2" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Restart"/>
+        <Button Content="Log Off"           VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Margin="10,185,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#79b3f2" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_LogOff"/>
+        <Button Content="Abort"             VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Margin="10,239,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#79b3f2" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_Abort"/>
+        <Button Content="Schedule Task"     VerticalAlignment="Top" FontStyle="Italic" HorizontalAlignment="Left" Margin="10,292,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"  Background="#79b3f2" BorderBrush="#FF3F3F3F" Width="182" Height="35" Click="Button_AdditionOptions"/>
 
     </Grid>
 </Window>

@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASquare.WindowsTaskScheduler, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ASquare.WindowsTaskScheduler.1.5.0.0\lib\Net45\ASquare.WindowsTaskScheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -57,23 +61,8 @@
     <Compile Include="AdvancedOptions\AdvancedOptions.xaml.cs">
       <DependentUpon>AdvancedOptions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PasswordAuthorization\Cipher.cs" />
-    <Compile Include="PasswordAuthorization\ConfirmPassword.xaml.cs">
-      <DependentUpon>ConfirmPassword.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PasswordAuthorization\SetPassword.xaml.cs">
-      <DependentUpon>SetPassword.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ProcessCommands\Process.cs" />
     <Page Include="AdvancedOptions\AdvancedOptions.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PasswordAuthorization\ConfirmPassword.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PasswordAuthorization\SetPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,6 +97,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
