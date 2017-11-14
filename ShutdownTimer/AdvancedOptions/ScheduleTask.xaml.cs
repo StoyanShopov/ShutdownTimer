@@ -36,9 +36,9 @@ namespace ShutdownTimer
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             CreateTask();
-            //MainWindow mainWindow = new MainWindow();
-            //mainWindow.Show();
-            //this.Close();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
 
         private void Operation_Loaded(object sender, RoutedEventArgs e)

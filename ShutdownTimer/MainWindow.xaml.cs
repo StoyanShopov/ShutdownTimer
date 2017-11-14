@@ -82,8 +82,8 @@ namespace ShutdownTimer
         }
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
         {
-            ScheduleTask adv = new ScheduleTask();
-            adv.Show();
+            ScheduleTask scheduleTask = new ScheduleTask();
+            scheduleTask.Show();
             this.Close();
         }
         private int GetTime()
@@ -103,6 +103,7 @@ namespace ShutdownTimer
         private void CreateFolderWithBatFiles()
         {
             string directory = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat";
+
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
@@ -110,6 +111,7 @@ namespace ShutdownTimer
                 string pathShutdown = directory + "\\Shutdown.bat";
                 string pathRestart = directory + "\\Restart.bat";
                 string pathHibernate = directory + "\\Hibernate.bat";
+                string deleteTask = directory + "\\DeleteTasks.bat";
                 string commandShutdown = "shutdown /s /f";
                 string commandRestart = "shutdown /r /f";
                 string commandHibernate = "shutdown /h /f";
@@ -125,6 +127,10 @@ namespace ShutdownTimer
                 using (StreamWriter sw = File.CreateText(pathHibernate))
                 {
                     sw.WriteLine(commandHibernate);
+                }
+                using (StreamWriter sw = File.CreateText(deleteTask))
+                {
+                    sw.WriteLine("");
                 }
             }
         }

@@ -56,16 +56,25 @@ namespace ShutdownTimer.AdvancedOptions
         {
             if (lbFiles.SelectedItem != null)
             {
-                ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + $"SchTasks /Delete /TN \"{lbFiles.SelectedItem.ToString()}\"");
-                procStartInfo.RedirectStandardOutput = true;
-                procStartInfo.UseShellExecute = false;
-                procStartInfo.CreateNoWindow = true;
+                string task = lbFiles.SelectedItem.ToString();
+                string taskFile = $"\\{lbFiles.SelectedItem.ToString()}.bat";
+                string path = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + taskFile;
+
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    sw.WriteLine($"SchTasks /Delete /TN \"{task}\" /f");
+                }
+
                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                proc.StartInfo = procStartInfo;
+                proc.EnableRaisingEvents = false;
+                proc.StartInfo.FileName = path;
                 proc.Start();
 
-                files.Remove(lbFiles.SelectedItem.ToString());
-         
+       
+
+                //files.Remove(lbFiles.SelectedItem.ToString());
+
+                File.Delete(path);
 
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
