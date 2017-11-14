@@ -14,8 +14,8 @@ namespace ShutdownTimer
             string shutDownCommand = $"shutdown /s /t {time}";
             ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + shutDownCommand);
             procStartInfo.RedirectStandardOutput = true;
-            procStartInfo.UseShellExecute = false;
-            procStartInfo.CreateNoWindow = true;
+            procStartInfo.UseShellExecute = true;
+            procStartInfo.CreateNoWindow = false;
             System.Diagnostics.Process proc = new System.Diagnostics.Process();
             proc.StartInfo = procStartInfo;
             proc.Start();

@@ -1,4 +1,5 @@
 ﻿
+using ShutdownTimer.AdvancedOptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -81,7 +82,7 @@ namespace ShutdownTimer
         }
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
         {
-            AdvancedOptions adv = new AdvancedOptions();
+            ScheduleTask adv = new ScheduleTask();
             adv.Show();
             this.Close();
         }
@@ -126,6 +127,12 @@ namespace ShutdownTimer
                     sw.WriteLine(commandHibernate);
                 }
             }
+        }
+        private void Button_DeleteTask(object sender, RoutedEventArgs e)
+        {
+            DeleteTask adv = new DeleteTask();
+            adv.Show();
+            this.Close();
         }
     }
 }

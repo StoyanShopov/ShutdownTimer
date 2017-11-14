@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\App.xaml
-21441247552
+31685647858
 
-11-233622203
+121058919310
 15-1446087757
-AdvancedOptions\AdvancedOptions.xaml;MainWindow.xaml;
+AdvancedOptions\DeleteTask.xaml;AdvancedOptions\ScheduleTask.xaml;MainWindow.xaml;
 
-True
+False
 
