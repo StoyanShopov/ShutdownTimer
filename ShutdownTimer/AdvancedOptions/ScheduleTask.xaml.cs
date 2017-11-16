@@ -33,14 +33,6 @@ namespace ShutdownTimer
             endDate.HorizontalContentAlignment = HorizontalAlignment.Right;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            CreateTask();
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
-        }
-
         private void Operation_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
@@ -91,15 +83,28 @@ namespace ShutdownTimer
             data.Add("21:00");
             data.Add("22:00");
             data.Add("23:00");
-            data.Add("00:00");
+            data.Add("24:00");
             comboBox.SelectedIndex = 9;
             comboBox.ItemsSource = data;
         }
-         private void CreateTask()
+
+        private void Button_Create(object sender, RoutedEventArgs e)
         {
+            if (String.IsNullOrEmpty(taskName.Text) || String.IsNullOrWhiteSpace(taskName.Text))
+            {
+                MessageBox.Show("Please fill in task name!");
+                return;
+            }
+  
             string operation = operationBox.SelectedValue.ToString();
-            string timespan = timespanBox.SelectedValue.ToString();    
+            string timespan = timespanBox.SelectedValue.ToString();
+
             string executionTime = ExecutionTime.SelectedValue.ToString();
+
+            if (executionTime == "24:00")
+            {
+                executionTime = "23:59";
+            }
 
             string dateStart = null;
             string dateEnd = null;
@@ -115,6 +120,18 @@ namespace ShutdownTimer
             if (endDateVar.HasValue)
             {
                 dateEnd = endDateVar.Value.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if (startDateVar < DateTime.Today)
+            {
+                MessageBox.Show("Start date should be equal or greater than current date!");
+                return;
+            }
+
+            if (endDateVar < DateTime.Today)
+            {
+                MessageBox.Show("End date should be greater than start date!");
+                return;
             }
 
             var startDate = DateTime.ParseExact(dateStart, "d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture);
@@ -150,25 +167,39 @@ namespace ShutdownTimer
                     intervals = "MONTHLY";
                     break;
             }
-         
-            string taskFile = $"\\{operation} timer scheduler.bat";
+
+            string taskFile = $"\\{taskName.Text}.bat";
             string path = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + taskFile;
-           
+
             if (!File.Exists(path))
             {
-                string taskName = $"{operation} timer scheduler";
-                string executeBatFile = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + operation;
+                string nameOfTheTask = $"{taskFile}";
+                string executeBatFile = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + path;
 
                 using (StreamWriter sw = File.CreateText(path))
                 {
-                    sw.WriteLine($"SchTasks /Create /SC {intervals} /TN \"{taskName}\" /TR \"{executeBatFile}\" /ST {executionTime} /SD {startDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)} /ED {endDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)}");
+                    sw.WriteLine($"SchTasks /Create /SC {intervals} /TN \"{nameOfTheTask}\" /TR \"{executeBatFile}\" /ST {executionTime} /SD {startDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)} /ED {endDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)}");
                 }
 
                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
                 proc.EnableRaisingEvents = false;
                 proc.StartInfo.FileName = path;
                 proc.Start();
+
+                MessageBox.Show("You successfully create task!");
+                taskName.Clear();
             }
+            else
+            {
+                MessageBox.Show("A file with that name is already exists!");
+            }
+        }
+
+        private void Button_Back(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

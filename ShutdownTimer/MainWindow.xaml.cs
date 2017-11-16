@@ -46,6 +46,7 @@ namespace ShutdownTimer
             data.Add("15m");
             data.Add("20m");
             data.Add("30m");
+            data.Add("45m");
             data.Add("1h");
             data.Add("2h");
             data.Add("3h");

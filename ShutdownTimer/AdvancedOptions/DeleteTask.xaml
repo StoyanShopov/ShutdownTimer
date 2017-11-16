@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:ShutdownTimer.AdvancedOptions"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="DeleteTask" Height="318" Width="237">
+        Title="Delete Tasks" Height="368" Width="237">
     <Grid Background="#FF3F3F3F">
-        <ListBox  Name="lbFiles" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="201"/>
+        <ListBox  Name="lbFiles" HorizontalAlignment="Left" Height="210" Margin="10,10,0,0" VerticalAlignment="Top" Width="201"/>
         <Button 
             Content="Delete"
             HorizontalAlignment="Left" 
@@ -20,6 +20,18 @@
             Background="#79b3f2"
             BorderBrush="#FF3F3F3F"
             Click="Button_Delete"   
+            Width="201" Height="35"/>
+        <Button 
+            Content="Back"
+            HorizontalAlignment="Left" 
+            Margin="10,275,0,0" 
+            VerticalAlignment="Top"
+            FontSize="14"
+            FontWeight="Bold"
+            Foreground="White"
+            Background="#79b3f2"
+            BorderBrush="#FF3F3F3F"
+            Click="Button_Back"   
             Width="201" Height="35"/>
 
     </Grid>

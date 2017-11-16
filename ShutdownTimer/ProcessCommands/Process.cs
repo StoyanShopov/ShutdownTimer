@@ -30,6 +30,15 @@ namespace ShutdownTimer
             System.Diagnostics.Process proc = new System.Diagnostics.Process();
             proc.StartInfo = procStartInfo;
             proc.Start();
+
+            //TODO Create bat which determinates PING.exe
+            ProcessStartInfo startInfo = new ProcessStartInfo("cmd", "/c " + "");
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+            startInfo.CreateNoWindow = true;
+            System.Diagnostics.Process pro = new System.Diagnostics.Process();
+            pro.StartInfo = procStartInfo;
+            pro.Start();
         }
 
         public void Hibernate(int time)

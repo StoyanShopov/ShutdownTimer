@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ShutdownTimer"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Schedule" Height="380" Width="227">
+        Title="Schedule" Height="475" Width="227">
 
     <Grid Background="#FF3F3F3F">
         <Grid.ColumnDefinitions>
@@ -65,7 +65,7 @@
         <Label
             Content="Start Date"
             HorizontalAlignment="Left"
-            Margin="67,118,0,0"  
+            Margin="65,118,0,0"  
             VerticalAlignment="Top"
             Width="79" 
             FontSize="14"   
@@ -115,7 +115,7 @@
         <Label
             Content="Execution Time"
             HorizontalAlignment="Left"
-            Margin="50,222,0,0" 
+            Margin="52,222,0,0" 
             VerticalAlignment="Top"
             Width="111" 
             FontSize="14"  
@@ -136,18 +136,50 @@
             Width="182"
             Height="25" Grid.ColumnSpan="2"/>
 
+        <Label
+            Content="  Task Name"
+            HorizontalAlignment="Left"
+            Margin="56,276,0,0" 
+            VerticalAlignment="Top"
+            Width="111" 
+            FontSize="14"  
+            FontWeight="Bold"
+            Foreground="White" Grid.ColumnSpan="2"/>
+        <TextBox 
+            x:Name="taskName"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Left"
+            Height="25"
+            Margin="15,300,0,0" 
+            TextWrapping="Wrap"
+            VerticalAlignment="Top" 
+            Width="182"/>
+
         <Button 
-            Content="Create Task"
+            Content="Create"
             HorizontalAlignment="Left" 
-            Margin="15,290,0,0" 
+            Margin="15,345,0,0" 
             VerticalAlignment="Top"
             FontSize="14"
             FontWeight="Bold"
             Foreground="White"
             Background="#79b3f2"
             BorderBrush="#FF3F3F3F"
-            Click="Button_Click"   
-            Width="182" Height="35" Grid.ColumnSpan="2"/>
+            Click="Button_Create"   
+            Width="182" Height="35" Grid.ColumnSpan="2" RenderTransformOrigin="0.493,-0.011"/>
+        <Button 
+            Content="Back"
+            HorizontalAlignment="Left" 
+            Margin="15,385,0,0" 
+            VerticalAlignment="Top"
+            FontSize="14"
+            FontWeight="Bold"
+            Foreground="White"
+            Background="#79b3f2"
+            BorderBrush="#FF3F3F3F"
+            Click="Button_Back"   
+            Width="182" Height="35" Grid.ColumnSpan="2" RenderTransformOrigin="0.493,1.297"/>
+ 
 
     </Grid>
 </Window>

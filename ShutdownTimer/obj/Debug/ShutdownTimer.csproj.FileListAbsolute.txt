@@ -17,3 +17,4 @@ C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\AdvancedOptio
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\AdvancedOptions\ScheduleTask.baml
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\AdvancedOptions\DeleteTask.g.cs
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\AdvancedOptions\DeleteTask.baml
+C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.csprojResolveAssemblyReference.cache
