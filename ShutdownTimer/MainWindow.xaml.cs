@@ -1,6 +1,4 @@
-﻿
-using ShutdownTimer.AdvancedOptions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -108,38 +106,47 @@ namespace ShutdownTimer
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
+            }
+            string pathShutdown = directory + "\\Shutdown.bat";
+            string pathRestart = directory + "\\Restart.bat";
+            string pathHibernate = directory + "\\Hibernate.bat";
+            string deleteTask = directory + "\\AbortTimer.bat";
+            string commandShutdown = "shutdown /s /f";
+            string commandRestart = "shutdown /r /f";
+            string commandHibernate = "shutdown /h /f";
+            string commandAbort = "Taskkill /IM PING.exe /F";
 
-                string pathShutdown = directory + "\\Shutdown.bat";
-                string pathRestart = directory + "\\Restart.bat";
-                string pathHibernate = directory + "\\Hibernate.bat";
-                string deleteTask = directory + "\\DeleteTasks.bat";
-                string commandShutdown = "shutdown /s /f";
-                string commandRestart = "shutdown /r /f";
-                string commandHibernate = "shutdown /h /f";
-
+            if (!File.Exists(pathShutdown))
+            {
                 using (StreamWriter sw = File.CreateText(pathShutdown))
                 {
                     sw.WriteLine(commandShutdown);
                 }
+            }
+
+            if (!File.Exists(pathRestart))
+            {
                 using (StreamWriter sw = File.CreateText(pathRestart))
                 {
                     sw.WriteLine(commandRestart);
                 }
+            }
+
+            if (!File.Exists(pathHibernate))
+            {
                 using (StreamWriter sw = File.CreateText(pathHibernate))
                 {
                     sw.WriteLine(commandHibernate);
                 }
+            }
+
+            if (!File.Exists(deleteTask))
+            {
                 using (StreamWriter sw = File.CreateText(deleteTask))
                 {
-                    sw.WriteLine("");
+                    sw.WriteLine(commandAbort);
                 }
             }
-        }
-        private void Button_DeleteTask(object sender, RoutedEventArgs e)
-        {
-            DeleteTask adv = new DeleteTask();
-            adv.Show();
-            this.Close();
         }
     }
 }

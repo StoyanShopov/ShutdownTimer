@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,14 +32,12 @@ namespace ShutdownTimer
             proc.StartInfo = procStartInfo;
             proc.Start();
 
-            //TODO Create bat which determinates PING.exe
-            ProcessStartInfo startInfo = new ProcessStartInfo("cmd", "/c " + "");
-            startInfo.RedirectStandardOutput = true;
-            startInfo.UseShellExecute = false;
-            startInfo.CreateNoWindow = true;
-            System.Diagnostics.Process pro = new System.Diagnostics.Process();
-            pro.StartInfo = procStartInfo;
-            pro.Start();
+            string directory = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat";
+            string path = directory + "\\AbortTimer.bat";
+            System.Diagnostics.Process processs = new System.Diagnostics.Process();
+            processs.EnableRaisingEvents = false;
+            processs.StartInfo.FileName = path;
+            processs.Start();
         }
 
         public void Hibernate(int time)

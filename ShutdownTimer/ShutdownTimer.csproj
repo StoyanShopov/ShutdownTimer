@@ -58,17 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AdvancedOptions\DeleteTask.xaml.cs">
-      <DependentUpon>DeleteTask.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AdvancedOptions\ScheduleTask.xaml.cs">
       <DependentUpon>ScheduleTask.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProcessCommands\Process.cs" />
-    <Page Include="AdvancedOptions\DeleteTask.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="AdvancedOptions\ScheduleTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

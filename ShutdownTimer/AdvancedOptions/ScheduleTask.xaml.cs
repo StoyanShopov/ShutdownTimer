@@ -2,10 +2,12 @@
 using ASquare.WindowsTaskScheduler.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using System.Globalization;
 namespace ShutdownTimer
 {
     /// <summary>
@@ -23,6 +25,7 @@ namespace ShutdownTimer
     /// </summary>
     public partial class ScheduleTask : Window
     {
+        private ObservableCollection<string> files = new ObservableCollection<string>();
         public ScheduleTask()
         {
             InitializeComponent();
@@ -31,6 +34,7 @@ namespace ShutdownTimer
             endDate.SelectedDate = DateTime.Today.AddDays(7);
             startDate.HorizontalContentAlignment = HorizontalAlignment.Right;
             endDate.HorizontalContentAlignment = HorizontalAlignment.Right;
+            GetFolderFiles();
         }
 
         private void Operation_Loaded(object sender, RoutedEventArgs e)
@@ -176,9 +180,11 @@ namespace ShutdownTimer
                 string nameOfTheTask = $"{taskFile}";
                 string executeBatFile = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + path;
 
+                string testPath = @"C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\bin\Debug\TaskSchedulesBat\Shutdown.bat";
+
                 using (StreamWriter sw = File.CreateText(path))
                 {
-                    sw.WriteLine($"SchTasks /Create /SC {intervals} /TN \"{nameOfTheTask}\" /TR \"{executeBatFile}\" /ST {executionTime} /SD {startDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)} /ED {endDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)}");
+                    sw.WriteLine($"SchTasks /Create /SC {intervals} /TN \"{nameOfTheTask}\" /TR \"{testPath}\" /ST {executionTime} /SD {startDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)} /ED {endDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)}");
                 }
 
                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
@@ -195,11 +201,52 @@ namespace ShutdownTimer
             }
         }
 
+        private void Button_Delete(object sender, RoutedEventArgs e)
+        {
+            if (lbFiles.SelectedItem != null)
+            {
+                string task = lbFiles.SelectedItem.ToString();
+                string taskFile = $"\\{lbFiles.SelectedItem.ToString()}";
+                string path = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + taskFile;
+
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    sw.WriteLine($"SchTasks /Delete /TN \"{task}\" /F");
+                }
+
+                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                proc.EnableRaisingEvents = false;
+                proc.StartInfo.FileName = path;
+                proc.Start();
+                Thread.Sleep(100);
+                File.Delete(path);
+                files.Remove(lbFiles.SelectedItem.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Please select a file!");
+            }
+        }
         private void Button_Back(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
+        }
+        private void GetFolderFiles()
+        {
+            string folder = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat";
+            string[] pathFiles = Directory.GetFiles(folder);
+            foreach (var file in pathFiles)
+            {
+                var currentFile = file.Split('\\').LastOrDefault();
+
+                if (currentFile != "Hibernate.bat" && currentFile != "Restart.bat" && currentFile != "Shutdown.bat" && currentFile != "AbortTimer.bat")
+                {
+                    files.Add(currentFile);
+                }
+            }
+            lbFiles.ItemsSource = files;
         }
     }
 }
