@@ -138,8 +138,8 @@ namespace ShutdownTimer
                 return;
             }
 
-            var startDate = DateTime.ParseExact(dateStart, "d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture);
-            var endDate = DateTime.ParseExact(dateEnd, "d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            var startDate = DateTime.ParseExact(dateStart, "d-M-yyyy", CultureInfo.InvariantCulture);
+            var endDate = DateTime.ParseExact(dateEnd, "d-M-yyyy", CultureInfo.InvariantCulture);
 
             string file = string.Empty;
             switch (operation)
@@ -177,14 +177,11 @@ namespace ShutdownTimer
 
             if (!File.Exists(path))
             {
-                string nameOfTheTask = $"{taskFile}";
-                string executeBatFile = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + path;
-
-                string testPath = @"C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\bin\Debug\TaskSchedulesBat\Shutdown.bat";
+                string executeBatFile = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + file;
 
                 using (StreamWriter sw = File.CreateText(path))
                 {
-                    sw.WriteLine($"SchTasks /Create /SC {intervals} /TN \"{nameOfTheTask}\" /TR \"{testPath}\" /ST {executionTime} /SD {startDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)} /ED {endDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)}");
+                    sw.WriteLine($"SchTasks /Create /SC {intervals} /TN \"{taskFile}\" /TR \"{executeBatFile}\" /ST {executionTime} /SD {startDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)} /ED {endDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)}");
                 }
 
                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
@@ -205,13 +202,12 @@ namespace ShutdownTimer
         {
             if (lbFiles.SelectedItem != null)
             {
-                string task = lbFiles.SelectedItem.ToString();
-                string taskFile = $"\\{lbFiles.SelectedItem.ToString()}";
-                string path = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + taskFile;
+                string taskFile = $"{lbFiles.SelectedItem.ToString()}.bat";
+                string path = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat\\" + taskFile;
 
                 using (StreamWriter sw = File.CreateText(path))
                 {
-                    sw.WriteLine($"SchTasks /Delete /TN \"{task}\" /F");
+                    sw.WriteLine($"SchTasks /Delete /TN \"{taskFile}\" /F");
                 }
 
                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
@@ -243,7 +239,8 @@ namespace ShutdownTimer
 
                 if (currentFile != "Hibernate.bat" && currentFile != "Restart.bat" && currentFile != "Shutdown.bat" && currentFile != "AbortTimer.bat")
                 {
-                    files.Add(currentFile);
+                    string name = currentFile.Substring(0, currentFile.Length - 4);
+                    files.Add(name);
                 }
             }
             lbFiles.ItemsSource = files;

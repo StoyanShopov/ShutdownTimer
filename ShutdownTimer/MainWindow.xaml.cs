@@ -32,7 +32,6 @@ namespace ShutdownTimer
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            CreateFolderWithBatFiles();
         }
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -98,55 +97,6 @@ namespace ShutdownTimer
             }
 
             return time;
-        }
-        private void CreateFolderWithBatFiles()
-        {
-            string directory = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat";
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            string pathShutdown = directory + "\\Shutdown.bat";
-            string pathRestart = directory + "\\Restart.bat";
-            string pathHibernate = directory + "\\Hibernate.bat";
-            string deleteTask = directory + "\\AbortTimer.bat";
-            string commandShutdown = "shutdown /s /f";
-            string commandRestart = "shutdown /r /f";
-            string commandHibernate = "shutdown /h /f";
-            string commandAbort = "Taskkill /IM PING.exe /F";
-
-            if (!File.Exists(pathShutdown))
-            {
-                using (StreamWriter sw = File.CreateText(pathShutdown))
-                {
-                    sw.WriteLine(commandShutdown);
-                }
-            }
-
-            if (!File.Exists(pathRestart))
-            {
-                using (StreamWriter sw = File.CreateText(pathRestart))
-                {
-                    sw.WriteLine(commandRestart);
-                }
-            }
-
-            if (!File.Exists(pathHibernate))
-            {
-                using (StreamWriter sw = File.CreateText(pathHibernate))
-                {
-                    sw.WriteLine(commandHibernate);
-                }
-            }
-
-            if (!File.Exists(deleteTask))
-            {
-                using (StreamWriter sw = File.CreateText(deleteTask))
-                {
-                    sw.WriteLine(commandAbort);
-                }
-            }
         }
     }
 }
