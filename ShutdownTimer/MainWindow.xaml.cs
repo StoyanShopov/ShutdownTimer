@@ -32,6 +32,7 @@ namespace ShutdownTimer
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            Process.CreateFolderWithBatFiles();
         }
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -55,28 +56,23 @@ namespace ShutdownTimer
 
         private void Button_Shutdown(object sender, RoutedEventArgs e)
         {
-            Process process = new Process();
-            process.ShutdownComputer(GetTime());
+            Process.ShutdownComputer(GetTime());
         }
         private void Button_Hibernate(object sender, RoutedEventArgs e)
         {
-            Process process = new Process();
-            process.Hibernate(GetTime());
+            Process.Hibernate(GetTime());
         }
         private void Button_Restart(object sender, RoutedEventArgs e)
         {
-            Process process = new Process();
-            process.Restart(GetTime());
+            Process.Restart(GetTime());
         }
         private void Button_LogOff(object sender, RoutedEventArgs e)
         {
-            Process process = new Process();
-            process.LogOff(GetTime());
+            Process.LogOff(GetTime());
         }
         private void Button_Abort(object sender, RoutedEventArgs e)
         {
-            Process process = new Process();
-            process.AbortShutdown();
+            Process.AbortShutdown();
         }
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
         {
@@ -84,6 +80,7 @@ namespace ShutdownTimer
             scheduleTask.Show();
             this.Close();
         }
+
         private int GetTime()
         {
             
@@ -95,8 +92,9 @@ namespace ShutdownTimer
             {
                 time *= 60;
             }
-
             return time;
         }
+
+        
     }
 }

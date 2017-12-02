@@ -18,6 +18,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Globalization;
+using ShutdownTimer.AdvancedOptions;
+
 namespace ShutdownTimer
 {
     /// <summary>
@@ -102,23 +104,66 @@ namespace ShutdownTimer
   
             string operation = operationBox.SelectedValue.ToString();
             string timespan = timespanBox.SelectedValue.ToString();
-
             string executionTime = ExecutionTime.SelectedValue.ToString();
 
-            if (executionTime == "24:00")
+            string dateStart = GetStartDate();
+            string dateEnd = GetEndDate();
+            var startDate = DateTime.ParseExact(dateStart, "d-M-yyyy", CultureInfo.InvariantCulture);
+            var endDate = DateTime.ParseExact(dateEnd, "d-M-yyyy", CultureInfo.InvariantCulture);
+
+            if (startDate < DateTime.Today)
             {
-                executionTime = "23:59";
+                MessageBox.Show("Start date should be equal or greater than current date!");
+                return;
             }
 
-            string dateStart = null;
+            if (endDate < DateTime.Today)
+            {
+                MessageBox.Show("End date should be greater than start date!");
+                return;
+            }
+
+            string taskFile = $"\\{taskName.Text}.bat";
+
+            var successful = Commands.Create(operation, timespan, executionTime, startDate, endDate, taskFile);
+
+            if (successful)
+            {
+                MessageBox.Show("You successfully create task!");
+            }
+            else
+            {
+                MessageBox.Show("A file with that name is already exists!");
+            }
+
+            taskName.Clear();
+            GetFolderFiles();
+        }
+
+        private void Button_Delete(object sender, RoutedEventArgs e)
+        {
+            if (lbFiles.SelectedItem != null)
+            {
+                string selectedItem = lbFiles.SelectedItem.ToString();
+                string path = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat\\" + selectedItem + ".bat";
+                Commands.Delete(path, files, selectedItem);
+            }
+            else
+            {
+                MessageBox.Show("Please select a file!");
+            }
+        }
+
+        private void Button_Back(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
+        }
+
+        private string GetEndDate()
+        {
             string dateEnd = null;
-
-            DateTime? startDateVar = this.startDate.SelectedDate;
-            if (startDateVar.HasValue)
-            {
-                dateStart = startDateVar.Value.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture);
-
-            }
 
             DateTime? endDateVar = this.endDate.SelectedDate;
             if (endDateVar.HasValue)
@@ -126,109 +171,22 @@ namespace ShutdownTimer
                 dateEnd = endDateVar.Value.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
 
-            if (startDateVar < DateTime.Today)
-            {
-                MessageBox.Show("Start date should be equal or greater than current date!");
-                return;
-            }
-
-            if (endDateVar < DateTime.Today)
-            {
-                MessageBox.Show("End date should be greater than start date!");
-                return;
-            }
-
-            var startDate = DateTime.ParseExact(dateStart, "d-M-yyyy", CultureInfo.InvariantCulture);
-            var endDate = DateTime.ParseExact(dateEnd, "d-M-yyyy", CultureInfo.InvariantCulture);
-
-            string file = string.Empty;
-            switch (operation)
-            {
-                case "Shutdown":
-                    file = "\\Shutdown.bat";
-                    break;
-                case "Restart":
-                    file = "\\Restart.bat";
-                    break;
-                case "Hibernate":
-                    file = "\\Hibernate.bat";
-                    break;
-            }
-
-            string intervals = string.Empty;
-            switch (timespan)
-            {
-                case "Hour":
-                    intervals = "HOURLY";
-                    break;
-                case "Day":
-                    intervals = "DAILY";
-                    break;
-                case "Week":
-                    intervals = "WEEKLY";
-                    break;
-                case "Month":
-                    intervals = "MONTHLY";
-                    break;
-            }
-
-            string taskFile = $"\\{taskName.Text}.bat";
-            string path = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + taskFile;
-
-            if (!File.Exists(path))
-            {
-                string executeBatFile = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat" + file;
-
-                using (StreamWriter sw = File.CreateText(path))
-                {
-                    sw.WriteLine($"SchTasks /Create /SC {intervals} /TN \"{taskFile}\" /TR \"{executeBatFile}\" /ST {executionTime} /SD {startDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)} /ED {endDate.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture)}");
-                }
-
-                System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                proc.EnableRaisingEvents = false;
-                proc.StartInfo.FileName = path;
-                proc.Start();
-
-                MessageBox.Show("You successfully create task!");
-                taskName.Clear();
-            }
-            else
-            {
-                MessageBox.Show("A file with that name is already exists!");
-            }
+            return dateEnd;
         }
 
-        private void Button_Delete(object sender, RoutedEventArgs e)
+        private string GetStartDate()
         {
-            if (lbFiles.SelectedItem != null)
-            {
-                string taskFile = $"{lbFiles.SelectedItem.ToString()}.bat";
-                string path = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat\\" + taskFile;
+            string startDate = null;
 
-                using (StreamWriter sw = File.CreateText(path))
-                {
-                    sw.WriteLine($"SchTasks /Delete /TN \"{taskFile}\" /F");
-                }
-
-                System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                proc.EnableRaisingEvents = false;
-                proc.StartInfo.FileName = path;
-                proc.Start();
-                Thread.Sleep(100);
-                File.Delete(path);
-                files.Remove(lbFiles.SelectedItem.ToString());
-            }
-            else
+            DateTime? startDateVar = this.startDate.SelectedDate;
+            if (startDateVar.HasValue)
             {
-                MessageBox.Show("Please select a file!");
+                startDate = startDateVar.Value.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
+
+            return startDate;
         }
-        private void Button_Back(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
-        }
+
         private void GetFolderFiles()
         {
             string folder = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat";
@@ -240,7 +198,11 @@ namespace ShutdownTimer
                 if (currentFile != "Hibernate.bat" && currentFile != "Restart.bat" && currentFile != "Shutdown.bat" && currentFile != "AbortTimer.bat")
                 {
                     string name = currentFile.Substring(0, currentFile.Length - 4);
-                    files.Add(name);
+
+                    if (!files.Contains(name))
+                    {
+                        files.Add(name);
+                    }
                 }
             }
             lbFiles.ItemsSource = files;
