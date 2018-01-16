@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿
 
 namespace ShutdownTimer.AdvancedOptions
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Threading;
+
     public class Commands
     {
         public static void Delete(string path, ObservableCollection<string> files, string selectedItem)

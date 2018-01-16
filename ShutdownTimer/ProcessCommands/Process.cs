@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace ShutdownTimer
+﻿namespace ShutdownTimer
 {
+    using System.Diagnostics;
+    using System.IO;
+    using System.Windows;
+
     public class Process
     {
         public static void ShutdownComputer(int time)

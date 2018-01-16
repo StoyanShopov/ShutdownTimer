@@ -1,30 +1,15 @@
-﻿using ASquare.WindowsTaskScheduler;
-using ASquare.WindowsTaskScheduler.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Globalization;
-using ShutdownTimer.AdvancedOptions;
-
-namespace ShutdownTimer
+﻿namespace ShutdownTimer
 {
-    /// <summary>
-    /// Interaction logic for AdvancedOptions.xaml
-    /// </summary>
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Globalization;
+    using ShutdownTimer.AdvancedOptions;
+
     public partial class ScheduleTask : Window
     {
         private ObservableCollection<string> files = new ObservableCollection<string>();
@@ -166,6 +151,7 @@ namespace ShutdownTimer
             string dateEnd = null;
 
             DateTime? endDateVar = this.endDate.SelectedDate;
+
             if (endDateVar.HasValue)
             {
                 dateEnd = endDateVar.Value.ToString("d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture);
