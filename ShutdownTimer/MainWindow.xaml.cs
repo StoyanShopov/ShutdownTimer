@@ -34,19 +34,25 @@
 
         private void Button_Shutdown(object sender, RoutedEventArgs e)
         {
-            Process.ShutdownComputer(GetTime());
+            string shutDownCommand = $"shutdown /s /t {GetTime()}";
+            Process.ExecuteCommand(shutDownCommand);
         }
         private void Button_Hibernate(object sender, RoutedEventArgs e)
         {
-            Process.Hibernate(GetTime());
+            string hibernateCommand = $"ping -n {GetTime()} 127.0.0.1 && shutdown /h /f";
+            Process.ExecuteCommand(hibernateCommand);
+            MessageBox.Show($"Your computer will hibernate after {GetTime()}");
         }
         private void Button_Restart(object sender, RoutedEventArgs e)
         {
-            Process.Restart(GetTime());
+            string restartCommand = $"shutdown /r /t {GetTime()}";
+            Process.ExecuteCommand(restartCommand);
         }
         private void Button_LogOff(object sender, RoutedEventArgs e)
         {
-            Process.LogOff(GetTime());
+            string loggOfCommand = $"ping -n {GetTime()} 127.0.0.1 && rundll32.exe user32.dll,LockWorkStation";
+            Process.ExecuteCommand(loggOfCommand);
+            MessageBox.Show($"Your computer will log off after {GetTime()}");
         }
         private void Button_Abort(object sender, RoutedEventArgs e)
         {

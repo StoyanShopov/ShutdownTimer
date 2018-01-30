@@ -6,10 +6,9 @@
 
     public class Process
     {
-        public static void ShutdownComputer(int time)
+        public static void ExecuteCommand(string command)
         {
-            string shutDownCommand = $"shutdown /s /t {time}";
-            ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + shutDownCommand);
+            ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + command);
             procStartInfo.RedirectStandardOutput = true;
             procStartInfo.UseShellExecute = false;
             procStartInfo.CreateNoWindow = true;
@@ -34,46 +33,6 @@
             processs.StartInfo.FileName = path;
             processs.Start();
             MessageBox.Show($"Your aborted successfully all commands!");
-
-        }
-
-        public static void Hibernate(int time)
-        {
-            string shutDownCommand = $"ping -n {time} 127.0.0.1 && shutdown /h /f";
-            ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + shutDownCommand);
-            procStartInfo.RedirectStandardOutput = true;
-            procStartInfo.UseShellExecute = false;
-            procStartInfo.CreateNoWindow = true;
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.StartInfo = procStartInfo;
-            proc.Start();
-            MessageBox.Show($"Your computer will hibernate after {time}");
-
-        }
-
-        public static void LogOff(int time)
-        {
-            string loggOfCommand = $"ping -n {time} 127.0.0.1 && rundll32.exe user32.dll,LockWorkStation";
-            ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + loggOfCommand);
-            procStartInfo.RedirectStandardOutput = true;
-            procStartInfo.UseShellExecute = false;
-            procStartInfo.CreateNoWindow = true;
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.StartInfo = procStartInfo;
-            proc.Start();
-            MessageBox.Show($"Your computer will log off after {time}");
-        }
-
-        public static void Restart(int time)
-        {
-            string shutDownCommand = $"shutdown /r /t {time}";
-            ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + shutDownCommand);
-            procStartInfo.RedirectStandardOutput = true;
-            procStartInfo.UseShellExecute = false;
-            procStartInfo.CreateNoWindow = true;
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.StartInfo = procStartInfo;
-            proc.Start();
         }
 
         public static void CreateFolderWithBatFiles()

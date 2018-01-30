@@ -81,7 +81,7 @@
 
         private void Button_Create(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(taskName.Text) || String.IsNullOrWhiteSpace(taskName.Text))
+            if (String.IsNullOrWhiteSpace(taskName.Text))
             {
                 MessageBox.Show("Please fill in task name!");
                 return;
