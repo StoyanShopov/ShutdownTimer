@@ -1,4 +1,7 @@
-﻿namespace ShutdownTimer
+﻿using System.Threading.Tasks;
+using ShutdownTimer.Commands;
+
+namespace ShutdownTimer
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -6,27 +9,34 @@
 
     public partial class MainWindow : Window
     {
+        private BatCreator batCreator;
+
         public MainWindow()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            Process.CreateFolderWithBatFiles();
+            this.batCreator = new BatCreator();
+            batCreator.CreateFolderWithBatFiles();
         }
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            List<string> data = new List<string>();
-            data.Add("5m");
-            data.Add("10m");
-            data.Add("15m");
-            data.Add("20m");
-            data.Add("30m");
-            data.Add("45m");
-            data.Add("1h");
-            data.Add("2h");
-            data.Add("3h");
-            data.Add("4h");
+
+            List<string> data = new List<string>
+            {
+                "5m",
+                "10m",
+                "15m",
+                "20m",
+                "30m",
+                "45m",
+                "1h",
+                "2h",
+                "3h",
+                "4h"
+            };
+
             comboBox.SelectedIndex = 4;
             comboBox.ItemsSource = data;
             
@@ -34,33 +44,35 @@
 
         private void Button_Shutdown(object sender, RoutedEventArgs e)
         {
-            string shutDownCommand = $"shutdown /s /t {GetTime()}";
-            Process.ExecuteCommand(shutDownCommand);
+            var shutDownCommand = $"shutdown /s /t {GetTime()}";
+            batCreator.ExecuteCommand(shutDownCommand);
         }
         private void Button_Hibernate(object sender, RoutedEventArgs e)
         {
-            string hibernateCommand = $"ping -n {GetTime()} 127.0.0.1 && shutdown /h /f";
-            Process.ExecuteCommand(hibernateCommand);
+            var hibernateCommand = $"ping -n {GetTime()} 127.0.0.1 && shutdown /h /f";
+            batCreator.ExecuteCommand(hibernateCommand);
             MessageBox.Show($"Your computer will hibernate after {GetTime()}");
         }
         private void Button_Restart(object sender, RoutedEventArgs e)
         {
-            string restartCommand = $"shutdown /r /t {GetTime()}";
-            Process.ExecuteCommand(restartCommand);
+            var restartCommand = $"shutdown /r /t {GetTime()}";
+            batCreator.ExecuteCommand(restartCommand);
         }
         private void Button_LogOff(object sender, RoutedEventArgs e)
         {
             string loggOfCommand = $"ping -n {GetTime()} 127.0.0.1 && rundll32.exe user32.dll,LockWorkStation";
-            Process.ExecuteCommand(loggOfCommand);
+            batCreator.ExecuteCommand(loggOfCommand);
             MessageBox.Show($"Your computer will log off after {GetTime()}");
         }
+
         private void Button_Abort(object sender, RoutedEventArgs e)
         {
-            Process.AbortShutdown();
+            batCreator.AbortShutdown();
         }
+
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
         {
-            ScheduleTask scheduleTask = new ScheduleTask();
+            Scheduler scheduleTask = new Scheduler();
             scheduleTask.Show();
             this.Close();
         }
@@ -75,6 +87,7 @@
             {
                 time *= 60;
             }
+
             return time;
         }
     }

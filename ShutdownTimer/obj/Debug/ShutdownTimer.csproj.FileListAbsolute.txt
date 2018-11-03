@@ -2,12 +2,10 @@ C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\bin\Debug\ShutdownTimer
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\bin\Debug\ShutdownTimer.exe
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\bin\Debug\ShutdownTimer.pdb
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\bin\Debug\ASquare.WindowsTaskScheduler.dll
-C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\AdvancedOptions\ScheduleTask.g.cs
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\MainWindow.g.cs
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\App.g.cs
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer_MarkupCompile.cache
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer_MarkupCompile.lref
-C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\AdvancedOptions\ScheduleTask.baml
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\MainWindow.baml
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.g.resources
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.Properties.Resources.resources
@@ -16,3 +14,5 @@ C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.exe
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.pdb
 C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\ShutdownTimer.csprojResolveAssemblyReference.cache
+C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\Scheduler.g.cs
+C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\Scheduler.baml
