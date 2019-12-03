@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\obj\Debug\
+D:\svn\ShutdownTimer\trunk\ShutdownTimer\obj\Debug\
 ShutdownTimer
 none
 false
 DEBUG;TRACE
-C:\Users\Stoyan\source\repos\ShutdownTimer\ShutdownTimer\App.xaml
-21811300229
+D:\svn\ShutdownTimer\trunk\ShutdownTimer\App.xaml
+3-778195098
 
-81181656013
-15-1446087757
-MainWindow.xaml;Scheduler.xaml;
+8230040405
+17-1472941340
+MainWindow.xaml;Views\Schedulers\SchedulerGridView.xaml;Views\Tasks\TaskGridView.xaml;
 
-False
+True
 

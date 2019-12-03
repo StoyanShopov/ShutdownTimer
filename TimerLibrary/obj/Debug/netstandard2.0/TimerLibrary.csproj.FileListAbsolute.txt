@@ -1,0 +1,8 @@
+D:\svn\ShutdownTimer\trunk\TimerLibrary\bin\Debug\netstandard2.0\TimerLibrary.deps.json
+D:\svn\ShutdownTimer\trunk\TimerLibrary\bin\Debug\netstandard2.0\TimerLibrary.dll
+D:\svn\ShutdownTimer\trunk\TimerLibrary\bin\Debug\netstandard2.0\TimerLibrary.pdb
+D:\svn\ShutdownTimer\trunk\TimerLibrary\obj\Debug\netstandard2.0\TimerLibrary.csprojAssemblyReference.cache
+D:\svn\ShutdownTimer\trunk\TimerLibrary\obj\Debug\netstandard2.0\TimerLibrary.AssemblyInfoInputs.cache
+D:\svn\ShutdownTimer\trunk\TimerLibrary\obj\Debug\netstandard2.0\TimerLibrary.AssemblyInfo.cs
+D:\svn\ShutdownTimer\trunk\TimerLibrary\obj\Debug\netstandard2.0\TimerLibrary.dll
+D:\svn\ShutdownTimer\trunk\TimerLibrary\obj\Debug\netstandard2.0\TimerLibrary.pdb
