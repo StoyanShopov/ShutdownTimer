@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace ShutdownTimer.Views.Tasks
+﻿namespace ShutdownTimer.Views.Tasks
 {
-    using Schedulers;
+    using System;
+    using System.Collections.Generic;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media;
     using TimerLibrary;
 
     /// <summary>
@@ -29,7 +18,6 @@ namespace ShutdownTimer.Views.Tasks
         {
             InitializeComponent();
         }
-
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -58,17 +46,17 @@ namespace ShutdownTimer.Views.Tasks
         {
             int seconds = GetSeconds();
 
-            Commander
+            BatchCommand
                 .ShutdownCommand(seconds)
-                .RunProcess();
+                .Run();
         }
         private void Button_Hibernate(object sender, RoutedEventArgs e)
         {
             int seconds = GetSeconds();
 
-            Commander
+            BatchCommand
                 .HibernateCommand(seconds)
-                .RunProcess();
+                .Run();
 
             string message = string.Format(HibernateMessage, seconds);
 
@@ -78,18 +66,18 @@ namespace ShutdownTimer.Views.Tasks
         {
             int seconds = GetSeconds();
 
-            Commander
+            BatchCommand
                 .RestartCommand(seconds)
-                .RunProcess();
+                .Run();
         }
 
         private void Button_LogOff(object sender, RoutedEventArgs e)
         {
             int seconds = GetSeconds();
 
-            Commander
+            BatchCommand
                 .LogOffCommand(seconds)
-                .RunProcess();
+                .Run();
 
             string message = string.Format(LogOffMessage, seconds);
 
@@ -98,11 +86,12 @@ namespace ShutdownTimer.Views.Tasks
 
         private void Button_Abort(object sender, RoutedEventArgs e)
         {
-            Commander
+            BatchCommand
                 .AbortShutdownCommand()
-                .RunProcess();
+                .Run();
         }
 
+        //TODO: Find better way to do it
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
         {
             Frame pageFrame = null;
@@ -121,6 +110,6 @@ namespace ShutdownTimer.Views.Tasks
         }
 
         private int GetSeconds()
-            => ComboBox.SelectedValue.ToString().ConvertDateTimeStringToSeconds();
+            => this.ComboBox.SelectedValue.ToString().ConvertDateTimeStringToSeconds();
     }
 }

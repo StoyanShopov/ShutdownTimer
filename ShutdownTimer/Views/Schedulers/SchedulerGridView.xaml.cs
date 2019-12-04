@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace ShutdownTimer.Views.Schedulers
+﻿namespace ShutdownTimer.Views.Schedulers
 {
+    using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Globalization;
     using System.IO;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
     using TimerLibrary;
 
     /// <summary>
@@ -25,29 +14,33 @@ namespace ShutdownTimer.Views.Schedulers
     /// </summary>
     public partial class SchedulerGridView : Page
     {
-        private const string dateTimeFormat = "d-M-yyyy";
+        private const string DateTimeFormat = "d-M-yyyy";
 
-        private readonly Command command;
+        private readonly SchedulerCreator schedulerCreator;
         private readonly ObservableCollection<string> files;
 
         public SchedulerGridView()
         {
             InitializeComponent();
 
-            this.command = new Command();
+            this.schedulerCreator = new SchedulerCreator();
             this.files = new ObservableCollection<string>();
 
             startDate.SelectedDate = DateTime.Today;
             endDate.SelectedDate = DateTime.Today.AddDays(7);
-            startDate.HorizontalContentAlignment = HorizontalAlignment.Right;
-            endDate.HorizontalContentAlignment = HorizontalAlignment.Right;
-            GetFolderFiles();
+
+            PopulateWindowWithFolderFiles();
         }
 
         private void Operation_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            var data = new List<string> { "ShutdownCommand", "RestartCommand", "HibernateCommand" };
+
+            var data = new List<string>
+            {
+                "ShutdownCommand", "RestartCommand", "HibernateCommand"
+            };
+
             comboBox.SelectedIndex = 0;
             comboBox.ItemsSource = data;
         }
@@ -55,7 +48,12 @@ namespace ShutdownTimer.Views.Schedulers
         private void RunEvery_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            var data = new List<string> { "Hour", "Day", "Week", "Month" };
+
+            var data = new List<string>
+            {
+                "Hourly", "Daily", "Weekly", "Monthly"
+            };
+
             comboBox.SelectedIndex = 1;
             comboBox.ItemsSource = data;
         }
@@ -63,6 +61,7 @@ namespace ShutdownTimer.Views.Schedulers
         private void ExecutionTime_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
+
             var data = new List<string>
             {
                 "01:00",
@@ -88,8 +87,9 @@ namespace ShutdownTimer.Views.Schedulers
                 "21:00",
                 "22:00",
                 "23:00",
-                "24:00"
+                "00:00"
             };
+
             comboBox.SelectedIndex = 9;
             comboBox.ItemsSource = data;
         }
@@ -98,7 +98,19 @@ namespace ShutdownTimer.Views.Schedulers
         {
             if (string.IsNullOrWhiteSpace(taskName.Text))
             {
-                MessageBox.Show("Please fill in task name!");
+                MessageBox.Show("Task name is missing!");
+                return;
+            }
+
+            if (this.startDate.SelectedDate < DateTime.Today)
+            {
+                MessageBox.Show("Start date should be equal or greater than current date!");
+                return;
+            }
+
+            if (this.endDate.SelectedDate < DateTime.Today)
+            {
+                MessageBox.Show("End date should be greater than start date!");
                 return;
             }
 
@@ -106,95 +118,64 @@ namespace ShutdownTimer.Views.Schedulers
             var timespan = timespanBox.SelectedValue.ToString();
             var executionTime = ExecutionTime.SelectedValue.ToString();
 
-            var dateStart = GetStartDate();
-            var dateEnd = GetEndDate();
+            var dateStart = this.startDate.SelectedDate; 
+            var dateEnd = this.endDate.SelectedDate;
+            var taskFile = taskName.Text;
 
-            var startDate = DateTime.ParseExact(dateStart, dateTimeFormat, CultureInfo.InvariantCulture);
-            var endDate = DateTime.ParseExact(dateEnd, dateTimeFormat, CultureInfo.InvariantCulture);
+            var isSuccessful = schedulerCreator
+                .Create(operation, timespan, executionTime, dateStart, dateEnd, taskFile);
 
-            if (startDate < DateTime.Today)
-            {
-                MessageBox.Show("Start date should be equal or greater than current date!");
-                return;
-            }
-
-            if (endDate < DateTime.Today)
-            {
-                MessageBox.Show("End date should be greater than start date!");
-                return;
-            }
-
-            var taskFile = $"\\{taskName.Text}.bat";
-
-            var successful = command.Create(operation, timespan, executionTime, startDate, endDate, taskFile);
-
-            MessageBox.Show(successful ? "You successfully create task!" : "A file with that name is already exists!");
+            MessageBox.Show(isSuccessful
+                ? "You successfully create task!" 
+                : "A file with that name is already exists!");
 
             taskName.Clear();
-            GetFolderFiles();
+
+            PopulateWindowWithFolderFiles();
         }
 
         private void Button_Delete(object sender, RoutedEventArgs e)
         {
-            if (lbFiles.SelectedItem != null)
-            {
-                var selectedItem = lbFiles.SelectedItem.ToString();
-                var path = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat\\" + selectedItem + ".bat";
-                command.Delete(path, files, selectedItem);
-            }
-            else
+            if (lbFiles.SelectedItem == null)
             {
                 MessageBox.Show("Please select a file!");
             }
+
+            var selectedItem = lbFiles.SelectedItem.ToString();
+
+            //TODO: Fix hardocoded path
+            var path = @"D:\svn\ShutdownTimer.git\trunk\ShutdownTimer\LocalDatabase\ScheduledTasks\" + selectedItem + ".bat";
+            schedulerCreator.Delete(path, files, selectedItem);
         }
 
-        private void Button_Back(object sender, RoutedEventArgs e)
+        private void PopulateWindowWithFolderFiles()
         {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-        }
-
-        private string GetEndDate()
-        {
-            string dateEnd = null;
-
-            var endDateVar = endDate.SelectedDate;
-
-            if (endDateVar.HasValue) dateEnd = endDateVar.Value.ToString(dateTimeFormat, CultureInfo.InvariantCulture);
-
-            return dateEnd;
-        }
-
-        private string GetStartDate()
-        {
-            string startDate = null;
-
-            var startDateVar = this.startDate.SelectedDate;
-            if (startDateVar.HasValue)
-                startDate = startDateVar.Value.ToString(dateTimeFormat, CultureInfo.InvariantCulture);
-
-            return startDate;
-        }
-
-        private void GetFolderFiles()
-        {
-            var folder = Directory.GetCurrentDirectory() + "\\TaskSchedulesBat";
+            //TODO: Fix hardocoded path
+            var folder = @"D:\svn\ShutdownTimer.git\trunk\ShutdownTimer\LocalDatabase\ScheduledTasks";
 
             var pathFiles = Directory.GetFiles(folder);
+
             foreach (var file in pathFiles)
             {
-                var currentFile = file.Split('\\').LastOrDefault();
+                var currentFile = file
+                    .Split('\\')
+                    .LastOrDefault();
 
-                if (currentFile != "HibernateCommand.bat" && currentFile != "RestartCommand.bat" && currentFile != "ShutdownCommand.bat" &&
-                    currentFile != "AbortTimer.bat")
+                if (currentFile == null || !currentFile.EndsWith(".bat"))
                 {
-                    var name = currentFile.Substring(0, currentFile.Length - 4);
+                    continue;
+                }
 
-                    if (!files.Contains(name)) files.Add(name);
+                var name = currentFile
+                    .Substring(0, currentFile.Length - 4);
+
+                if (!files.Contains(name))
+                {
+                    this.files.Add(name);
                 }
             }
 
-            lbFiles.ItemsSource = files;
+            this.lbFiles.ItemsSource = this.files;
         }
     }
 }

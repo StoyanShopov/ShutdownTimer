@@ -1,5 +1,8 @@
 ﻿namespace TimerLibrary
 {
+    using System;
+    using System.Globalization;
+
     public static class Helper
     {
         public static int ConvertDateTimeStringToSeconds(this string date)
@@ -14,6 +17,18 @@
             }
 
             return time;
+        }
+
+        public static string ConvertDateTimeToString(this DateTime? date, string format)
+        {
+            string dateEnd = null;
+
+            if (date.HasValue)
+            {
+                dateEnd = date.Value.ToString(format, CultureInfo.InvariantCulture);
+            }
+
+            return dateEnd;
         }
     }
 }
