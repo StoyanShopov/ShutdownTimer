@@ -11,51 +11,47 @@
         private const string BatExtension = ".bat";
         private const string DeleteTask = "SchTasks /Delete /TN \"{0}\" /F";
         private const string CreateTask = "SchTasks /Create /SC {0} /TN \"{1}\" /TR \"{2}\" /ST {3} /SD {4} /ED {5}";
+        private const string DateTimeFormat = "dd-MM-yyyy";
+
         public void Delete(string path, ObservableCollection<string> files, string selectedItem)
         {
             var taskFile = selectedItem + BatExtension;
 
-            using (var sw = File.CreateText(path))
-            {
-                sw.WriteLine(DeleteTask, taskFile);
-            }
+            string content = string.Format(DeleteTask, taskFile);
+
+            File.WriteAllText(path, content);
 
             path.Run();
 
             Thread.Sleep(100);
 
             File.Delete(path);
-
             files.Remove(selectedItem);
         }
 
         public bool Create(string operation, string timespan, string executionTime, DateTime? startDate, DateTime? endDate, string taskFile)
         {
-            string path = GetPathFromScheduleFolder(taskFile);
+            string path = Helper.GetPathFоrScheduleFolder;
+            string executeBatFile = path + operation + BatExtension;
 
-            if (File.Exists(path))
+            if (File.Exists(executeBatFile))
             {
                 return false;
             }
 
-            string file = operation + BatExtension;
             string interval = timespan.ToUpper();
-            string executeBatFile = GetPathFromScheduleFolder(file);
-            string startDateAsString = startDate.Value.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture);
-            string endDateAsString = endDate.Value.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture);
 
-            using (var sw = File.CreateText(path))
-            {
-                sw.WriteLine(CreateTask, interval, taskFile, executeBatFile, executionTime, startDateAsString, endDateAsString);
-            }
+            string startDateAsString = startDate.Value.ToString(DateTimeFormat, CultureInfo.InvariantCulture);
+            string endDateAsString = endDate.Value.ToString(DateTimeFormat, CultureInfo.InvariantCulture);
 
-            path.Run();
+            string content = string.Format(CreateTask, interval, taskFile, executeBatFile, executionTime,
+                startDateAsString, endDateAsString);
+
+            File.WriteAllText(executeBatFile, content);
+
+            executeBatFile.Run();
 
             return true;
         }
-
-        //TODO: Fix hardcoded path
-        private string GetPathFromScheduleFolder(string fileName)
-            => $@"D:\svn\ShutdownTimer.git\trunk\ShutdownTimer\LocalDatabase\ScheduledTasks\{fileName}.bat";
     }
 }

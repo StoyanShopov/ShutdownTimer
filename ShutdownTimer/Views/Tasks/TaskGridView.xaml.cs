@@ -14,6 +14,7 @@
     {
         private const string HibernateMessage = "Your computer will hibernate after {0}";
         private const string LogOffMessage = "Your computer will log off after {0}";
+
         public TaskGridView()
         {
             InitializeComponent();
@@ -50,6 +51,7 @@
                 .ShutdownCommand(seconds)
                 .Run();
         }
+
         private void Button_Hibernate(object sender, RoutedEventArgs e)
         {
             int seconds = GetSeconds();
@@ -62,6 +64,7 @@
 
             MessageBox.Show(message);
         }
+
         private void Button_Restart(object sender, RoutedEventArgs e)
         {
             int seconds = GetSeconds();
@@ -91,18 +94,17 @@
                 .Run();
         }
 
-        //TODO: Find better way to do it
         private void Button_AdditionOptions(object sender, RoutedEventArgs e)
         {
             Frame pageFrame = null;
             DependencyObject currParent = VisualTreeHelper.GetParent(this);
+
             while (currParent != null && pageFrame == null)
             {
                 pageFrame = currParent as Frame;
                 currParent = VisualTreeHelper.GetParent(currParent);
             }
 
-            // Change the page of the frame.
             if (pageFrame != null)
             {
                 pageFrame.Source = new Uri("Views/Schedulers/SchedulerGridView.xaml", UriKind.Relative);

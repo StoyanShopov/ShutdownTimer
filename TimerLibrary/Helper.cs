@@ -19,16 +19,8 @@
             return time;
         }
 
-        public static string ConvertDateTimeToString(this DateTime? date, string format)
-        {
-            string dateEnd = null;
-
-            if (date.HasValue)
-            {
-                dateEnd = date.Value.ToString(format, CultureInfo.InvariantCulture);
-            }
-
-            return dateEnd;
-        }
+        
+        public static string  GetPathFоrScheduleFolder
+            => @"..\..\..\ShutdownTimer\LocalDatabase\ScheduledTasks\";
     }
 }

@@ -14,8 +14,6 @@
     /// </summary>
     public partial class SchedulerGridView : Page
     {
-        private const string DateTimeFormat = "d-M-yyyy";
-
         private readonly SchedulerCreator schedulerCreator;
         private readonly ObservableCollection<string> files;
 
@@ -143,17 +141,14 @@
 
             var selectedItem = lbFiles.SelectedItem.ToString();
 
-            //TODO: Fix hardocoded path
-            var path = @"D:\svn\ShutdownTimer.git\trunk\ShutdownTimer\LocalDatabase\ScheduledTasks\" + selectedItem + ".bat";
+            string extension = ".bat";
+            var path = Helper.GetPathFоrScheduleFolder + selectedItem + extension;
             schedulerCreator.Delete(path, files, selectedItem);
         }
 
         private void PopulateWindowWithFolderFiles()
         {
-            //TODO: Fix hardocoded path
-            var folder = @"D:\svn\ShutdownTimer.git\trunk\ShutdownTimer\LocalDatabase\ScheduledTasks";
-
-            var pathFiles = Directory.GetFiles(folder);
+            var pathFiles = Directory.GetFiles(Helper.GetPathFоrScheduleFolder);
 
             foreach (var file in pathFiles)
             {
